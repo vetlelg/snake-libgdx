@@ -9,7 +9,12 @@ public class Snake extends SnakeBodyPart {
     private ArrayList<SnakeBodyPart> array = new ArrayList<SnakeBodyPart>();
 
     Snake() {
+        // Set the heads position to the middle
         setRectPosition(new Rectangle(World.WIDTH/2 - SIZE/2, World.WIDTH/2 - SIZE/2, SIZE, SIZE));
+
+        // Expand snake with a tail and a body
+        expand();
+        expand();
     }
 
     public void expand() {
@@ -48,4 +53,6 @@ public class Snake extends SnakeBodyPart {
             setPreviousRectPosition(part.getPreviousRect());
         }
     }
+
+
 }

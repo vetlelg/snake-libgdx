@@ -1,5 +1,6 @@
 package com.snake.libgdx;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,9 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.awt.*;
 
 public class GameObject {
-    public static final int SIZE = 16;
-    private float moveSpeed = 40000000, moveLength = SIZE;
-    private Texture image;
+    public static final int SIZE = 64;
+    private float moveSpeed = 1000000000, moveLength = SIZE;
+    private Texture image = new Texture(Gdx.files.internal("apple.png"));
     private Rectangle rect = new Rectangle(0, 0, SIZE, SIZE);
     private Point direction = new Point();
     private long lastMoveTime = TimeUtils.nanoTime();
