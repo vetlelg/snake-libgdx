@@ -10,22 +10,19 @@ import java.awt.*;
 
 public class GameObject {
     public static final int SIZE = 16;
-    private float moveSpeed = 2000000, moveLength = 5;
+    private float moveSpeed = 40000000, moveLength = SIZE;
     private Texture image;
     private Rectangle rect = new Rectangle(0, 0, SIZE, SIZE);
     private Point direction = new Point();
     private long lastMoveTime = TimeUtils.nanoTime();
 
     public void move() {
-        // check if it's time to move
-        if (TimeUtils.nanoTime() - lastMoveTime > moveSpeed) {
-            lastMoveTime = TimeUtils.nanoTime();
-            rect.x += rect.x * moveLength;
-            rect.y += rect.y * moveLength;
-        }
+        lastMoveTime = TimeUtils.nanoTime();
+        rect.x += direction.x * moveLength;
+        rect.y += direction.y * moveLength;
     }
     public boolean isOutOfBounds() {
-        if (rect.x < 0 || rect.y > World.WIDTH - SIZE || rect.y < 0 || rect.y > World.HEIGHT - rect.y) {
+        if (rect.x < 0 || rect.x > World.WIDTH - SIZE || rect.y < 0 || rect.y > World.HEIGHT - SIZE) {
             return true;
         }
         return false;
@@ -46,7 +43,13 @@ public class GameObject {
     public Rectangle getRect() {
         return rect;
     }
-    public void setRect(Rectangle rect) { this.rect = rect; }
+    public void setRectPosition(Rectangle rect) { this.rect.x = rect.x; this.rect.y = rect.y; }
 
     public Point getDirection() { return direction; }
+    public void setDirection(Point direction) { this.direction = direction; }
+
+    public float getMoveSpeed() { return moveSpeed; }
+
+    public long getLastMoveTime() { return lastMoveTime; }
+    public void setLastMoveTime(long lastMoveTime) { this.lastMoveTime = lastMoveTime; }
 }

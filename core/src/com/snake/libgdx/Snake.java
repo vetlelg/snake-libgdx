@@ -9,11 +9,15 @@ public class Snake extends SnakeBodyPart {
     private ArrayList<SnakeBodyPart> array = new ArrayList<SnakeBodyPart>();
 
     Snake() {
-        setRect(new Rectangle(World.WIDTH/2 - SIZE/2, World.WIDTH/2 - SIZE/2, SIZE, SIZE));
+        setRectPosition(new Rectangle(World.WIDTH/2 - SIZE/2, World.WIDTH/2 - SIZE/2, SIZE, SIZE));
     }
 
     public void expand() {
         SnakeBodyPart bodyPart = new SnakeBodyPart();
+
+        // Set initial position to the same as the head
+        bodyPart.getRect().x = getRect().x;
+        bodyPart.getRect().y = getRect().y;
         array.add(bodyPart);
     }
 
@@ -36,12 +40,12 @@ public class Snake extends SnakeBodyPart {
     }
 
     public void move() {
-        setPreviousRect(getPreviousRect());
+        setPreviousRectPosition(getRect());
         super.move();
         for (SnakeBodyPart part : array) {
-            part.setPreviousRect(part.getPreviousRect());
-            part.setRect(getPreviousRect());
-            setPreviousRect(part.getPreviousRect());
+            part.setPreviousRectPosition(part.getRect());
+            part.setRectPosition(getPreviousRect());
+            setPreviousRectPosition(part.getPreviousRect());
         }
     }
 }

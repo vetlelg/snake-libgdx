@@ -15,7 +15,7 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, World.WIDTH, World.HEIGHT);
 		batch = new SpriteBatch();
 
 		// Create the world, including the snake, the apple and other objects in the world
@@ -51,8 +51,6 @@ public class Game extends ApplicationAdapter {
 		if (world.getSnake().isOutOfBounds()) {
 			world = new World();
 		}
-
-
 	}
 
 	@Override
