@@ -1,91 +1,52 @@
 package com.snake.libgdx;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.awt.*;
 
 public class GameObject {
+    public static final int SIZE = 16;
     private float moveSpeed = 2000000, moveLength = 5;
-    private Point position = new Point(), direction = new Point(), size = new Point(16, 16);
     private Texture image;
-    private Rectangle rectangle = new Rectangle(position.x, position.y, size.x, size.y);
+    private Rectangle rect = new Rectangle(0, 0, SIZE, SIZE);
+    private Point direction = new Point();
     private long lastMoveTime = TimeUtils.nanoTime();
 
     public void move() {
-        position.x += direction.x * moveLength;
-        position.y += direction.y * moveLength;
+        // check if it's time to move
+        if (TimeUtils.nanoTime() - lastMoveTime > moveSpeed) {
+            lastMoveTime = TimeUtils.nanoTime();
+            rect.x += rect.x * moveLength;
+            rect.y += rect.y * moveLength;
+        }
     }
-
     public boolean isOutOfBounds() {
-        if (position.x < 0 || position.x > World.WINDOW_WIDTH - size.x || position.y < 0 || position.y > World.WINDOW_HEIGHT - size.y) {
+        if (rect.x < 0 || rect.y > World.WIDTH - SIZE || rect.y < 0 || rect.y > World.HEIGHT - rect.y) {
             return true;
         }
         return false;
     }
-
-    public float getMoveSpeed() {
-        return moveSpeed;
+    public void setRandomPosition() {
+        rect.x = MathUtils.random(0, World.WIDTH-SIZE);
+        rect.y = MathUtils.random(0, World.HEIGHT-SIZE);
     }
 
-    public void setMoveSpeed(float moveSpeed) {
-        this.moveSpeed = moveSpeed;
-    }
+    public void dispose() { image.dispose(); }
 
-    public float getMoveLength() {
-        return moveLength;
-    }
-
-    public void setMoveLength(float moveLength) {
-        this.moveLength = moveLength;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public Point getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Point direction) {
-        this.direction = direction;
-    }
-
-    public Point getSize() {
-        return size;
-    }
-
-    public void setSize(Point size) {
-        this.size = size;
-    }
-
-    public Texture getImage() {
-        return image;
-    }
+    public void draw(SpriteBatch batch) { batch.draw(image, rect.x, rect.y); }
 
     public void setImage(Texture image) {
         this.image = image;
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Rectangle getRect() {
+        return rect;
     }
+    public void setRect(Rectangle rect) { this.rect = rect; }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-
-    public long getLastMoveTime() {
-        return lastMoveTime;
-    }
-
-    public void setLastMoveTime(long lastMoveTime) {
-        this.lastMoveTime = lastMoveTime;
-    }
+    public Point getDirection() { return direction; }
 }
