@@ -1,3 +1,3 @@
 # snake-libgdx
-###*Not finished*
+### Not finished
 Snake created in Java with libGDX
