@@ -1,0 +1,5 @@
+package com.snake.java;
+
+public enum Direction {
+    UP, DOWN, LEFT, RIGHT, NONE
+}
